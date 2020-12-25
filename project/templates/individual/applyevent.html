@@ -1,0 +1,209 @@
+{% extends 'institution_base.html' %}
+{% load static %}
+{% block content %}
+<!--
+<div class="row">
+  <div class="col-md-8 col-sm-10 col-12">
+    <h2>Sign up as a {{ user_type }}</h2>
+    <form method="post" id="profileForm" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ form.as_table }}
+      <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
+  </div>
+</div> -->
+
+<head>
+    <title>Enroll Now!</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="{% static "techei/base/css/bootstrap.min.css" %}"> -->
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{% static "techei/base/css/font-awesome.min.css" %}">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static "techei/base/css/swiper.min.css" %}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static "techei/base/style.css" %}">
+</head>
+
+<section class="home-slider owl-carousel">
+  {% for img in evimg %}
+      <div class="slider-item" style="background-image:url({{img.name.url}});">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+          <div class="col-md-6 ftco-animate">
+            <h1 class="mb-4">{{ev_type.title}}</h1>
+            <p>{{ev_type.venue}},{{ev_type.address}}, {{city.name}},{{state.name}}</p>
+            <p>{{ev_type.start_date}},{{ev_type.end_date}},{{ev_type.time}}</p>
+          </div>
+        </div>
+        </div>
+      </div>
+{% endfor %}
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 single-event">
+                <div class="event-content-wrap">
+                    <header class="entry-header flex flex-wrap justify-content-between align-items-end">
+                        <div class="single-event-heading">
+                            <h1 class="entry-title">&nbsp</h1>
+                        </div>
+
+                        <div class="buy-tickets flex justify-content-center align-items-center">
+                          {% if user.is_individual %}
+                          <form method="post">{% csrf_token %}
+                            {% if clen > 0 %}
+                              <h3 class="btn gradient-bg"> Enrolled </h3>
+                            {% elif sev.available_seats == 0 %}
+                              <h3 class="btn gradient-bg"> Seats Are filled! </h3>
+                            {% else %}
+                              <button class="btn gradient-bg" type="submit">Enroll Now!</button>
+                            {% endif %}
+                          </form>
+                          {% endif %}
+                        </div>
+                    </header>
+
+                    <figure class="events-thumbnail">
+                        <img src="images/summer.jpg" alt="">
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="tabs">
+                    <ul class="tabs-nav flex">
+                        <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_details">Details</li>
+                        <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_description">Description</li>
+                        <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_venue">Venue</li>
+                        <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_organizers">Organizers</li>
+                    </ul>
+
+                    <div class="tabs-container">
+                        <div id="tab_details" class="tab-content">
+                            <div class="flex flex-wrap justify-content-between">
+                                <div class="single-event-details">
+                                    <div class="single-event-details-row">
+                                        <label>Start:</label>
+                                        <p>{{ev_type.start_date}},{{ev_type.time}}</p>
+                                    </div>
+
+                                    <div class="single-event-details-row">
+                                        <label>End:</label>
+                                        <p>{{ev_type.end_date}}</p>
+                                    </div>
+                                    {% if ev_type.fee == 0%}
+                                    <div class="single-event-details-row">
+                                        <label>Fee:</label>
+                                        <p>{{ev_type.fee}}</p>
+                                    </div>
+
+                                    <div class="single-event-details-row">
+                                        <label>Payement Link:</label>
+                                        <p>{{ev_type.paylink}}</p>
+                                    </div>
+
+                                    {% endif %}
+
+                                    <div class="single-event-details-row">
+                                        <label>Seats Available</label>
+                                        <p> <span>{{sev.available_seats}}/{{sev.total_seats}}</span></p>
+                                    </div>
+
+                                    <div class="single-event-details-row">
+                                        <label>Categories:</label>
+                                        <p>{{category.name}}</p>
+                                    </div>
+
+                                    <!-- <div class="single-event-details-row">
+                                        <label>Tags:</label>
+                                        <p><a href="#">festivals</a>, <a href="#">music</a>, <a href="#">concert</a></p>
+                                    </div> -->
+                                </div>
+
+                                <div class="single-event-map">
+                                    <iframe id="gmap_canvas" src="https://maps.google.com/maps?q={{ev_type.venue}}&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab_venue" class="tab-content">
+                            <p>{{ev_type.venue}}, {{ev_type.address}}, {{city.name}}, {{state.name}}</p>
+                        </div>
+
+                        <div id="tab_description" class="tab-content">
+                            <p>{{ev_type.description}}</p>
+                        </div>
+
+                        <div id="tab_organizers" class="tab-content">
+                            <p><h3>{{evinst.institutionname}}</h3></p>
+                              <p><span>{{evinst.contact}}</span></p>
+                              <p><span>{{evinst.regno}}</span></p>
+                              <p><span>{{inst_pro.email}}</span></p>
+                              <p><span>{{evinst.rating}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="upcoming-events">
+                  {% if user.is_individual %}
+                    <div class="upcoming-events-header">
+                        <h4>Upcoming Events</h4>
+                    </div>
+
+                    <div class="upcoming-events-list">
+                      {% for up in upcoming %}
+                        <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center">
+
+
+                            <div class="entry-meta">
+                                <div class="event-date">
+                                    {{up.start_date}}<span>{{up.end_date}}</span>
+                                </div>
+                            </div>
+
+                            <header class="entry-header">
+                                <h3 class="entry-title"><a href="#">{{up.title}}</a></h3>
+
+                                <div class="event-date-time">{{up.time}}</div>
+
+                                <div class="event-speaker">{{up.venue}}, {{up.address}}</div>
+                            </header>
+
+                            <footer class="entry-footer">
+                                <a href="{% url 'apply_event' event_id=up.id  %}">Enroll Now</a>
+                            </footer>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='/static/techei/base/js/jquery.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/masonry.pkgd.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/swiper.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/jquery.countdown.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/circle-progress.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='/static/techei/base/js/custom.js'></script>
+{% endblock %}

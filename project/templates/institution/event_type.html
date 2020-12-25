@@ -1,0 +1,128 @@
+<!--
+{% block content %}
+  <h2>Sign up for a free account</h2>
+  <p class="lead">Select below the type of account you want to create</p>
+  <a href="{% url 'individual_signup' %}" >Individual</a>
+  <a href="{% url 'institution_signup' %}" >Institution</a>
+{% endblock %} -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Type</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+  <meta name="author" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static "techei/type/css/animate.css" %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static "techei/type/css/icomoon.css" %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static "techei/type/css/bootstrap.css" %}">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static "techei/type/css/magnific-popup.css" %}">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="{% static "techei/type/css/flexslider.css" %}">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{% static "techei/type/css/owl.carousel.min.css" %}">
+	<link rel="stylesheet" href="{% static "techei/type/css/owl.theme.default.min.css" %}">
+
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="{% static "techei/type/fonts/flaticon/font/flaticon.css" %}">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{% static "techei/type/css/style.css" %}">
+
+	<!-- Modernizr JS -->
+        <script src="{% static "techei/type/js/modernizr-2.6.2.min.js" %}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+    </head>
+    <body>
+            <table align="center">
+                <tr>
+                    <td>
+                        <div class="about-wrap">
+		<div id="colorlib-about" class="colorlib-about-img"  data-stellar-background-ratio="0.5">
+			<!-- <div class="overlay"></div> -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center colorlib-heading colorlib-heading2 animate-box">
+						<h2><font color="black">Your Event is </font></h2>
+					</div>
+				</div>
+					<div class="animate-box">
+						<div class="about-flex">
+							<div class="col-lg-12 col-md-8 text-center">
+								<a href="{% url 'add_event' type=0 %}" class="staff-img" style="background-image: url('/static/techei/type/images/free.jpg');">
+									<div class="desc-staff">
+										<h3>Free Workshop</h3>
+									</div>
+								</a>
+                  <a href="{% url 'add_event' type=1 %}" class="staff-img" style="background-image: url('/static/techei/type/images/paid.jpg');">
+									<div class="desc-staff">
+										<h3>Paid Workshop</h3>
+									</div>
+								</a>
+							</div>
+            </div>
+			     </div>
+           <div class="animate-box">
+ 						<div class="about-flex">
+ 							<div class="col-lg-12 col-md-8 text-center">
+ 								<a href="{% url 'add_event' type=2 %}" class="staff-img" style="background-image: url('/static/techei/type/images/comp.jpg');">
+ 									<div class="desc-staff">
+ 										<h3>Competition</h3>
+ 									</div>
+ 								</a>
+                   <a href="{% url 'add_event' type=3 %}" class="staff-img" style="background-image: url('/static/techei/type/images/event.jpg');">
+ 									<div class="desc-staff">
+ 										<h3>Event</h3>
+ 									</div>
+ 								</a>
+ 							</div>
+             </div>
+ 			     </div>
+         </div>
+        </div>
+                        </div>
+                </tr>
+            </table>
+        <!-- jQuery -->
+	<script src="{% static "techei/type/js/jquery.min.js" %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{% static "techei/type/js/jquery.easing.1.3.js" %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static "techei/type/js/bootstrap.min.js" %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static "techei/type/js/jquery.waypoints.min.js" %}"></script>
+	<!-- Stellar Parallax -->
+	<script src="{% static "techei/type/js/jquery.stellar.min.js" %}"></script>
+	<!-- Flexslider -->
+	<script src="{% static "techei/type/js/jquery.flexslider-min.js" %}"></script>
+	<!-- Owl carousel -->
+	<script src="{% static "techei/type/js/owl.carousel.min.js" %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{% static "techei/type/js/jquery.magnific-popup.min.js" %}"></script>
+	<script src="{% static "techei/type/js/magnific-popup-options.js"></script>
+	<!-- Counters -->
+	<script src="{% static "techei/type/js/jquery.countTo.js" %}"></script>
+	<!-- Main -->
+	<script src="{% static "techei/type/js/main.js" %}"></script>
+
+    </body>
+</html>

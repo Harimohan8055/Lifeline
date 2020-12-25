@@ -1,0 +1,117 @@
+{% extends 'institution_base.html' %}
+{% load static %}
+{% block content %}
+<head>
+	<title>Responses</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/techei/table/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/techei/table/vendor/bootstrap/css/bootstrap.min.css"> -->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/techei/table/css/main.css">
+<!--===============================================================================================-->
+</head>
+
+<section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image:url('https://www.globalengineers.co.in/images/demo/registration.jpg');">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+          <div class="col-md-6 ftco-animate">
+            <h1 class="mb-4">Add Workshops </h1>
+            <p>Add your Workshops Here </p>
+            <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+
+{% for f in fest %}
+
+  <h2>{{f.name}}</h2>
+
+        <div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Event Name</th>
+									<th class="cell100 column2">First Name</th>
+									<th class="cell100 column3">Last Name</th>
+									<th class="cell100 column4">Email</th>
+									<th class="cell100 column5">Age</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+          {% for ur in ureg %}
+            {% for u in ur %}
+              {% if u.event.fest_id == f.id %}
+      					<div class="table100-body js-pscroll">
+      						<table>
+      							<tbody>
+      								<tr class="row100 body">
+      									<td class="cell100 column1" ><a href="{% url 'apply_event' event_id=u.event.id %}">{{u.event.title}}</a></td>
+      									<td class="cell100 column2">{{u.user.first_name}}</td>
+      									<td class="cell100 column3">{{u.user.last_name}}</td>
+      									<td class="cell100 column4">{{u.user.email}}</td>
+      									<td class="cell100 column5">10</td>
+      								</tr>
+      							</tbody>
+      						</table>
+      					</div>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+				</div>
+
+        {% endfor %}
+
+        </div>
+      </div>
+    </div
+
+
+
+
+
+
+<script src="/static/techei/table/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/techei/table/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/techei/table/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/techei/table/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/techei/table/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+
+
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+{% endblock %}

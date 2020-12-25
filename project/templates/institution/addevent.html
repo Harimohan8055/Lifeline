@@ -1,0 +1,203 @@
+{% extends 'institution_base.html' %}
+{% load static %}
+{% block content %}
+<head>
+<title>Add Fest/Club</title>
+<link href="{% static "techei/addfest/css/main.css" %}" rel="stylesheet" media="all">
+</head>
+
+<section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image:url(/static/techei/dash/images/fest.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+          <div class="col-md-6 ftco-animate">
+            <h1 class="mb-4">Add Workshops </h1>
+            <p>Add your Workshops Here </p>
+            <!-- <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p> -->
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="slider-item" style="background-image:url(https://www.boxhillgolfclub.com.au/wp-content/uploads/2018/12/1440x700-golf-competitions-melbourne-1440x700.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+          <div class="col-md-6 ftco-animate">
+            <h1 class="mb-4">Add Competions</h1>
+            <p>Add your Competitions Here </p>
+            <!-- <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p> -->
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+
+                <div class="card-body">
+                  {% if not fest %}
+
+                    <div class="card-footer">
+                          <h1 class="mb-4">You Dont Have Any Clubs/Fest Registered. Register One To continue.</h1>
+                        <a class="btn btn--radius-2 btn--blue-2" href="{% url 'add_fest' %}">Add Fest/Clubs</a>
+                    </div>
+                  {% endif %}
+                  {% if fest %}
+                  <form method="POST" id="event" data-cities-url="{% url 'ajax_load_cities' %}" >
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <div class="form-row">
+                        <div class="name">Fest/Club Name</div>
+                        <div class="value">
+                            <select class="input--style-6" name="fest" required id="id_fest">
+                              <option  value="" selected="selected">---SELECT---</option>
+                               {% for f in fest %}
+                                <option value="{{f.id}}">{{f.name}}</option>
+                               {% endfor %}
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Category</div>
+                        <div class="value">
+                          {{form.category}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Required Attendee Type</div>
+                        {{form.attendee_type}}
+                    </div>
+                    <div class="form-row">
+                      <div class="name">Title</div>
+                      <div class="value">
+                        <input class="input--style-6" type="text" name="title" required id="id_title">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Venue</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="venue" required id="venue">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Address</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" name="address" id="id_address" placeholder="Provide the address" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">State</div>
+                      {{form.state}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">City</div>
+                        {{form.city}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Time</div>
+                        <div class="value">
+                            <input class="input--style-6" type="time" name="time" required id="id_time">
+                        </div>
+                        {{form.time.errors}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Start Date</div>
+                        <div class="value">
+                            <input class="input--style-6" type="date" name="start_date" required id="id_start_date">
+                        </div>
+                        {{form.start_date.errors}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">End Date</div>
+                        <div class="value">
+                            <input class="input--style-6" type="date" name="end_date" required id="id_end_date">
+                        </div>
+                        {{form.end_date.errors}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Seats</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="seats" required id="id_seats">
+                        </div>
+                        {{form.seats.errors}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Description</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" name="description" id="id_description" placeholder="Describe the event"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {% if type == 1 or type == 2 %}
+                    <div class="form-row">
+                        <div class="name">Fee</div>
+                        <div class="value">
+                            <input class="input--style-6" type="number" name="fee" id="id_fee">
+                        </div>
+                        {{form.fee.errors}}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Payment Link</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="paylink" id="id_paylink">
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if type == 2 %}
+                    <div class="form-row">
+                        <div class="name">Prize</div>
+                        <div class="value">
+                            <input class="input--style-6" type="number" name="prize" id="id_prize">
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="card-footer">
+                        <button class="btn btn--radius-2 btn--blue-2"  type="submit">Next</button>
+                    </div>
+                  </form>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {{sform.errors}}
+
+
+<!-- <div class="row">
+  <div class="col-md-8 col-sm-10 col-12">
+    <h2>Sign up as a {{ user_type }}</h2>
+    <form method="post" id="event" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ sform.as_table }}
+      <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
+  </div>
+</div> -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_state").change(function () {
+    var url = $("#event").attr("data-cities-url");
+    var stateId = $(this).val();
+
+    $.ajax({
+      url: url,
+      data: {
+        'state': stateId
+      },
+      success: function (data) {
+        $("#id_city").html(data);
+      }
+    });
+
+  });
+</script>
+
+{% endblock %}
